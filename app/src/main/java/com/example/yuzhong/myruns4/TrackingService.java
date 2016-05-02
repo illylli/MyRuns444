@@ -1,34 +1,22 @@
 package com.example.yuzhong.myruns4;
 
-import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 public class TrackingService extends Service {
@@ -104,7 +92,7 @@ public class TrackingService extends Service {
 
 //        updateWithNewLocation(l);
 
-        locationManager.requestLocationUpdates(provider, 2000, 0,
+        locationManager.requestLocationUpdates(provider, 500, 0,
                 locationListener);
 
         isRunning = true;

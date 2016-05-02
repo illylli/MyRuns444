@@ -60,7 +60,8 @@ public class StartFragment extends Fragment{
                     i.putExtra("activity_type", mActivityspinner.getSelectedItem().toString());
                 } else{
                     i = new Intent(getActivity(),MapDisplayActivity.class);
-                    i.putExtra("input_type", "Unknown");
+                    i.putExtra("activity_type", "Unknown");
+                    i.putExtra("input_type", mInputspinner.getSelectedItem().toString());
                 }
                 startActivity(i);
             }
