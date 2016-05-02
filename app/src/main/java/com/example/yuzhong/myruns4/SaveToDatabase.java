@@ -3,6 +3,7 @@ package com.example.yuzhong.myruns4;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Yuzhong on 2016/4/19.
@@ -10,6 +11,7 @@ import android.util.Log;
 public class SaveToDatabase extends AsyncTask<Void, Integer, Void> {
     private HistoryDataSource mDataSource;
     private HistoryEntry mHistoryEntry;
+    private HistoryEntry newHistoryEntry;
     private Context context;
 
     public SaveToDatabase(Context context, HistoryEntry mHistoryEntry){
@@ -32,7 +34,8 @@ public class SaveToDatabase extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void... params) {
         mDataSource.open();
         Log.d("CS65", "Save data:" + mHistoryEntry.getmDuration());
-        mDataSource.createHistory(mHistoryEntry);
+        newHistoryEntry = mDataSource.createHistory(mHistoryEntry);
+
         mDataSource.close();
         return null;
     }
@@ -55,6 +58,7 @@ public class SaveToDatabase extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPostExecute(Void result) {
         // Getting reference to the TextView tv_counter of the layout activity_main
-
+        Toast toast = Toast.makeText(context, "Entry #" + newHistoryEntry.getId() + "Saved", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

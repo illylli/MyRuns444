@@ -54,12 +54,13 @@ public class StartFragment extends Fragment{
                     i = new Intent(getActivity(),ManualActivity.class);
                     i.putExtra("input_type", mInputspinner.getSelectedItem().toString());
                     i.putExtra("activity_type", mActivityspinner.getSelectedItem().toString());
-                }
-
-                else {
+                } else if(mInputspinner.getSelectedItem().toString().equals("GPS")){
                     i = new Intent(getActivity(),MapDisplayActivity.class);
                     i.putExtra("input_type", mInputspinner.getSelectedItem().toString());
                     i.putExtra("activity_type", mActivityspinner.getSelectedItem().toString());
+                } else{
+                    i = new Intent(getActivity(),MapDisplayActivity.class);
+                    i.putExtra("input_type", "Unknown");
                 }
                 startActivity(i);
             }

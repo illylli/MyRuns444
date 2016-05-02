@@ -39,9 +39,14 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".MapActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="Map" />
-        <activity android:name=".ManualActivity" />
-        <activity android:name=".DisplayEntryActivity" />
+        <activity
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:name=".ManualActivity" />
+        <activity
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:name=".DisplayEntryActivity" />
 
         <!-- <receiver -->
         <!-- android:name=".HistoryFragment" -->

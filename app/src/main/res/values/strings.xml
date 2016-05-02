@@ -95,4 +95,5 @@
 
     <string name="service_started">Timer is started</string>
     <string name="service_label">Tap me to go back</string>
+    <string name="entity_id">entityId</string>
 </resources>

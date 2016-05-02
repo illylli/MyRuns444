@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -66,6 +68,13 @@ public class MapDisplayActivity extends FragmentActivity implements OnMapReadyCa
     private final double MILESCONVERTTOKILOMETERS = 1.609344;
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //  outState.putInt("isServiceStart", backfromGps);
+        outState.putLong("starttime", mStartTime);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_display);
@@ -96,7 +105,8 @@ public class MapDisplayActivity extends FragmentActivity implements OnMapReadyCa
 //                    .zIndex(z)
         );
 
-        mStartTime = System.currentTimeMillis();
+        if(savedInstanceState != null) mStartTime = savedInstanceState.getLong("starttime");
+        else mStartTime = System.currentTimeMillis();
 
         mIsBound = false;
     }
@@ -170,11 +180,6 @@ public class MapDisplayActivity extends FragmentActivity implements OnMapReadyCa
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     private BroadcastReceiver receiver= new BroadcastReceiver() {
 
         @Override
@@ -203,13 +208,16 @@ public class MapDisplayActivity extends FragmentActivity implements OnMapReadyCa
                 if (mEnd == null)
                     mEnd = mMap.addMarker(new MarkerOptions().position(endLatlng).icon(BitmapDescriptorFactory.defaultMarker(
                             BitmapDescriptorFactory.HUE_RED)));
-                else mEnd.setPosition(endLatlng);
+                else {
+                    mEnd.setPosition(endLatlng);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(beginLatlng, 17));
+                }
             }
         }
 
         mAverageSpeed = mHistoryEntry.getmDistance() / (((double) (System.currentTimeMillis() - mStartTime)) / 3600000);
         mHistoryEntry.setmAvgSpeed(mAverageSpeed);
-        mCurrentSpeed = mTrackingService.getCurSpeed();
+        mCurrentSpeed = mTrackingService.getCurSpeed() * 3.6;
         mClimb = mHistoryEntry.getmClimb();
         mDistance = mHistoryEntry.getmDistance();
 
@@ -226,10 +234,10 @@ public class MapDisplayActivity extends FragmentActivity implements OnMapReadyCa
         }
 
         String formatSpeed = new DecimalFormat("###.##").format(mAverageSpeed);
-        String formatCurSpeed = new DecimalFormat("#.##").format(mCurrentSpeed);
-        String formatClimb = new DecimalFormat("#.##").format(mClimb);
+        String formatCurSpeed = new DecimalFormat("###.##").format(mCurrentSpeed);
+        String formatClimb = new DecimalFormat("###.##").format(mClimb);
         String calories = String.valueOf(mHistoryEntry.getmCalorie());
-        String formatDistance = new DecimalFormat("#.##").format(mDistance);
+        String formatDistance = new DecimalFormat("###.##").format(mDistance);
 
         StringBuilder location = new StringBuilder();
 
@@ -252,25 +260,36 @@ public class MapDisplayActivity extends FragmentActivity implements OnMapReadyCa
         Log.d("InputType", inputType);
 
         mHistoryEntry.setmInputType(inputType);
+
         if(!inputType.equals("Automatic")) mHistoryEntry.setmActivityType(activityType);
-        double duration = ((double)(System.currentTimeMillis() - mStartTime)) / (1000 * 60);
-        mHistoryEntry.setmDistance(duration);
+        else mHistoryEntry.setmActivityType("Unknown");
+
+        int duration = (int) ((System.currentTimeMillis() - mStartTime) / 1000);
+        mHistoryEntry.setmDuration(duration);
+
+        Log.d("InputType", duration + "*****");
+        Log.d("InputType", mHistoryEntry.getmDistance() + "*****" + mHistoryEntry.getmClimb());
 
         SaveToDatabase saveToDatabase = new SaveToDatabase(this, mHistoryEntry);
         saveToDatabase.execute();
-
-        unregisterReceiver(receiver);
-        unbindService(this);
-        stopService(new Intent(this, TrackingService.class));
 
         this.finish();
     }
 
     public void onMapCancelClicked(View view) {
+        this.finish();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
         unregisterReceiver(receiver);
         unbindService(this);
         stopService(new Intent(this, TrackingService.class));
+    }
 
+    @Override
+    public void onBackPressed(){
         this.finish();
     }
 

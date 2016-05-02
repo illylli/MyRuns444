@@ -104,7 +104,7 @@ public class TrackingService extends Service {
 
 //        updateWithNewLocation(l);
 
-        locationManager.requestLocationUpdates(provider, 1000, 1,
+        locationManager.requestLocationUpdates(provider, 2000, 0,
                 locationListener);
 
         isRunning = true;
@@ -122,8 +122,9 @@ public class TrackingService extends Service {
      * Display a notification in the notification bar.
      */
     private void showNotification() {
+        //when touch it, you can get the data back
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MapDisplayActivity.class), 0);
+                new Intent(this, MapDisplayActivity.class).addCategory(Intent.CATEGORY_LAUNCHER).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         Notification notification = new Notification.Builder(this)
                 .setContentTitle(this.getString(R.string.service_label))
                 .setContentText(

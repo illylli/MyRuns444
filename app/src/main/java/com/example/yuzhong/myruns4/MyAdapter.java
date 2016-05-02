@@ -67,7 +67,7 @@ public class MyAdapter extends ArrayAdapter<HistoryEntry> {
     }
 
     public String getFirstRow(HistoryEntry historyEntry){
-        return "Manual Entry: " + historyEntry.getmActivityType() + ", " + historyEntry.getmDateTime();
+        return historyEntry.getmInputType() + ": " + historyEntry.getmActivityType() + ", " + historyEntry.getmDateTime();
     }
 
     public String getSecondRow(HistoryEntry historyEntry){
