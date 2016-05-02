@@ -1,5 +1,8 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
+import java.nio.ByteBuffer;
+import java.nio.DoubleBuffer;
+import java.nio.IntBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -101,8 +104,8 @@ public class HistoryEntry {
         return mLocationList;
     }
 
-    public void setmLocationList(ArrayList<LatLng> mLocationList) {
-        this.mLocationList = mLocationList;
+    public void setmLocationList(LatLng mLocation) {
+        this.mLocationList.add(mLocation);
     }
 
     public double getmClimb() {
@@ -130,6 +133,41 @@ public class HistoryEntry {
         this.mComment = mComment;
     }
 
+    public byte[] getmLocationByteArray() {
+        double[] locationCoordinates = new double[mLocationList.size() * 2];
+
+        int count = 0;
+        for( LatLng location: mLocationList) {
+            locationCoordinates[count] = location.latitude;
+            count++;
+            locationCoordinates[count] = location.longitude;
+            count++;
+        }
+
+        ByteBuffer byteBuffer = ByteBuffer.allocate(locationCoordinates.length
+                * Double.SIZE);
+        DoubleBuffer doubleBuffer = byteBuffer.asDoubleBuffer();
+        doubleBuffer.put(locationCoordinates);
+
+        return byteBuffer.array();
+    }
+
+    public void setmLocationListFromByteArray(byte[] bytesLocationCoordinates) {
+
+        if(bytesLocationCoordinates.length == 0) return;
+
+        ByteBuffer byteBuffer = ByteBuffer.wrap(bytesLocationCoordinates);
+        DoubleBuffer doubleBuffer = byteBuffer.asDoubleBuffer();
+        double[] locationCoordinates = new double[bytesLocationCoordinates.length / Double.SIZE];
+        doubleBuffer.get(locationCoordinates);
+
+        int CoordinatesListSize = locationCoordinates.length / 2;
+        for (int i = 0; i < CoordinatesListSize; i++) {
+            LatLng latLng = new LatLng(locationCoordinates[i * 2], locationCoordinates[i * 2 + 1]);
+            mLocationList.add(latLng);
+        }
+    }
+
     public HistoryEntry() {
         this.mInputType = "Manual Input";
         this.mActivityType = "Running";
@@ -142,6 +180,7 @@ public class HistoryEntry {
         this.mClimb = 0.0;
         this.mHeartRate = 0;
         this.mComment = "";
+        this.mLocationList = new ArrayList<LatLng>();
     }
 
 

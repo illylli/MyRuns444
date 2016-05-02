@@ -1,13 +1,9 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.Loader;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -88,6 +84,39 @@ public class HistoryFragment extends Fragment implements LoaderManager.LoaderCal
                 i.putExtra("calories", entryList.get(pos).getmCalorie()+" cals");
                 i.putExtra("heart_rate", entryList.get(pos).getmHeartRate()+" bpm");
                 startActivityForResult(i, DELETE_REQEST_CODE);
+            } else {
+                i = new Intent(getActivity(), MapActivity.class);
+
+                i.putExtra("Id",entryList.get(pos).getId());
+                i.putExtra("input_type", entryList.get(pos).getmInputType());
+                i.putExtra("activity_type", entryList.get(pos).getmActivityType());
+
+                String unit = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("list_preference", "Miles");
+                String unit1 = "";
+                String unit2 = "";
+                double aveSpeed = entryList.get(pos).getmAvgSpeed();
+                double climb = entryList.get(pos).getmClimb();
+                double distance = entryList.get(pos).getmDistance();
+                if(unit.equals("Imperial(Miles)")) {
+                    aveSpeed /= MILESCONVERTTOKILOMETERS;
+                    climb /= MILESCONVERTTOKILOMETERS;
+                    distance /= MILESCONVERTTOKILOMETERS;
+                    unit2 = " Miles";
+                    unit1 = " m/h";
+                }else{
+                    unit2 = " Kilometers";
+                    unit1 = " km/h";
+                }
+                i.putExtra("avgSpeed", Double.toString(aveSpeed) + unit1);
+                i.putExtra("climb", Double.toString(climb) + unit2);
+                i.putExtra("calories", Integer.toString(entryList.get(pos).getmCalorie()));
+                i.putExtra("distance", Double.toString(distance) + unit2);
+                i.putExtra("location_list", entryList.get(pos).getmLocationByteArray());
+                i.putExtra("unit1", unit1);
+                i.putExtra("unit2", unit2);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("location_list2", entryList.get(pos).getmLocationList());
+                i.putExtras(bundle);
             }
         }
     }

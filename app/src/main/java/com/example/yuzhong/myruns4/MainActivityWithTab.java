@@ -1,4 +1,4 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.yuzhong.myruns3.view.SlidingTabLayout;
+import com.example.yuzhong.myruns4.view.SlidingTabLayout;
 
 import java.util.ArrayList;
 

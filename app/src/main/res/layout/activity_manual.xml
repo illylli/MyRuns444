@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.yuzhong.myruns3.ManualActivity"
+    tools:context="com.example.yuzhong.myruns4.ManualActivity"
     android:orientation="vertical"
     android:weightSum="1">
 

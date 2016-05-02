@@ -1,4 +1,4 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,14 +24,15 @@ public class ExerciseEntryHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_CLIMB = "climb";
 	public static final String COLUMN_HEARTRATE = "heartrate";
 	public static final String COLUMN_COMMENT = "comment";
+	public static final String COLUMN_GPS = "gps_data";
 
 	private static final String DATABASE_NAME = "smartPhone.db";
 	private static final int DATABASE_VERSION = 1;
 
 	// Database creation sql statement
 	private static final String DATABASE_CREATE = "CREATE TABLE "
-			+ TABLE_COMMENTS + "(" + COLUMN_ID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ TABLE_COMMENTS + "("
+			+ COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ COLUMN_INPUTTYPE + " TEXT NOT NULL, "
 			+ COLUMN_ACTIVITY + " TEXT NOT NULL, "
 			+ COLUMN_DATETIME + " DATETIME NOT NULL, "
@@ -42,7 +43,8 @@ public class ExerciseEntryHelper extends SQLiteOpenHelper {
 			+ COLUMN_CALORIES + " INTEGER, "
 			+ COLUMN_CLIMB + " FLOAT, "
 			+ COLUMN_HEARTRATE + " INTEGER, "
-			+ COLUMN_COMMENT + " TEXT);";
+			+ COLUMN_COMMENT + " TEXT, "
+			+ COLUMN_GPS + " BLOB );";
 
 	public ExerciseEntryHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

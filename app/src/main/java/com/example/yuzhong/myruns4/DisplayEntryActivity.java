@@ -1,10 +1,8 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;

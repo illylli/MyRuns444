@@ -1,4 +1,4 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

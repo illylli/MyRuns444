@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.example.yuzhong.myruns3"
+        applicationId "com.example.yuzhong.myruns4"
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
@@ -24,7 +24,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
 //    compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
-    compile 'com.android.support:support-v4:23.2.1'
-    compile 'com.android.support:support-v13:23.2.1'
-    compile 'com.google.android.gms:play-services:6.5.87'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:support-v13:23.3.0'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.android.support:appcompat-v7:23.3.0'
 }

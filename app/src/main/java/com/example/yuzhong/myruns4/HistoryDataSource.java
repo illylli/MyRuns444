@@ -1,4 +1,4 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,7 +19,7 @@ public class HistoryDataSource {
 			ExerciseEntryHelper.COLUMN_ACTIVITY, ExerciseEntryHelper.COLUMN_DATETIME, ExerciseEntryHelper.COLUMN_DURATION,
 			ExerciseEntryHelper.COLUMN_DISTANCE, ExerciseEntryHelper.COLUMN_AVGPACE, ExerciseEntryHelper.COLUMN_AVGSPEED,
 			ExerciseEntryHelper.COLUMN_CALORIES, ExerciseEntryHelper.COLUMN_CLIMB, ExerciseEntryHelper.COLUMN_HEARTRATE,
-			ExerciseEntryHelper.COLUMN_COMMENT};
+			ExerciseEntryHelper.COLUMN_COMMENT, ExerciseEntryHelper.COLUMN_GPS};
 
 	private static final String TAG = "DBDEMO";
 
@@ -51,6 +51,9 @@ public class HistoryDataSource {
         values.put(ExerciseEntryHelper.COLUMN_CLIMB, historyEntry.getmClimb());
         values.put(ExerciseEntryHelper.COLUMN_HEARTRATE, historyEntry.getmHeartRate());
         values.put(ExerciseEntryHelper.COLUMN_COMMENT, historyEntry.getmComment());
+		byte[] byteLocations = historyEntry.getmLocationByteArray();
+		if(byteLocations != null)
+			values.put(ExerciseEntryHelper.COLUMN_GPS, byteLocations);
 
 		long insertId = database.insert(ExerciseEntryHelper.TABLE_COMMENTS, null,
 				values);
@@ -118,6 +121,9 @@ public class HistoryDataSource {
         historyEntry.setmClimb(cursor.getFloat(9));
         historyEntry.setmHeartRate(cursor.getInt(10));
         historyEntry.setmComment(cursor.getString(11));
+		byte[] byteLocations = cursor.getBlob(12);
+		if(byteLocations != null)
+			historyEntry.setmLocationListFromByteArray(byteLocations);
 		return historyEntry;
 	}
 }

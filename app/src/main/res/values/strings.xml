@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">MyRuns3</string>
+    <string name="app_name">MyRuns4</string>
 
     <string name="alert_dialog_two_buttons_title">EditBox</string>
     <string name="alert_dialog_ok">OK</string>
     <string name="alert_dialog_cancel">CANCEL</string>
 
-    //from profile
     <string name="profile_photo_content_description">Your profile photo:</string>
     <string name="your_name">Your Name</string>
     <string name="your_email">Your Email</string>
@@ -20,6 +19,7 @@
     <string name="cancel_message">Canceled</string>
     <string name="dialog_fragment_tag_photo_picker">dialog_for_photo_picker</string>
     <string name="ui_profile_photo_picker_title">Choose</string>
+
     <string-array name="photo_picker_ways">
         <item>Take picture from camera</item>
         <item>Select picture from gallery</item>
@@ -28,22 +28,25 @@
     <string name="account_preferences"> Account Preferences</string>
     <string name="user_profile">User Profile</string>
     <string name="user_information">Names, Emails, Class, etc</string>
-    <string name="target_package">com.example.yuzhong.myruns3</string>
-    <string name="target_class">com.example.yuzhong.myruns3.ProfileActivity</string>
+    <string name="target_package">com.example.yuzhong.myruns4</string>
+    <string name="target_class">com.example.yuzhong.myruns4.ProfileActivity</string>
     <string name="privacy_setting">Privacy Setting</string>
     <string name="privacy_information">Posting your records anonymously</string>
 
     <string name="additional_settings">Additional Settings</string>
     <string name="unit_preference">Unit Preference</string>
     <string name="unit_information">Select the units</string>
+
     <array name="unit_array">
         <item>Metric(Kilometers)</item>
         <item>Imperial(Miles)</item>
     </array>
+
     <array name="unit_array_value">
         <item>Metric(Kilometers)</item>
         <item>Imperial(Miles)</item>
     </array>
+
     <string name="comments">Comments</string>
     <string name="comments_information">Please enter your comments</string>
 
@@ -52,11 +55,13 @@
     <string name="webpage_information">http://www.cs.dartmouth.edu/</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string-array name="InputTypeSpinner">
         <item>Manual Entry</item>
         <item>GPS</item>
         <item>Automatic</item>
     </string-array>
+
     <string-array name="ActivityTypeSpinner">
         <item>Running</item>
         <item>Walking</item>
@@ -83,5 +88,11 @@
         <item>Heart Rate</item>
         <item>Comment</item>
     </string-array>
-    >
+
+    <string name="map_save">SAVE</string>
+    <string name="map_cancel">CANCEL</string>
+    <string name="title_activity_map_display">Map</string>
+
+    <string name="service_started">Timer is started</string>
+    <string name="service_label">Tap me to go back</string>
 </resources>

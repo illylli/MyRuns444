@@ -1,4 +1,4 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -57,8 +57,9 @@ public class StartFragment extends Fragment{
                 }
 
                 else {
-                    i = new Intent(getActivity(),MapActivity.class);
-
+                    i = new Intent(getActivity(),MapDisplayActivity.class);
+                    i.putExtra("input_type", mInputspinner.getSelectedItem().toString());
+                    i.putExtra("activity_type", mActivityspinner.getSelectedItem().toString());
                 }
                 startActivity(i);
             }

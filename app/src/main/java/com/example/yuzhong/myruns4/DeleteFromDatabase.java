@@ -1,8 +1,4 @@
-package com.example.yuzhong.myruns3;
-
-import android.os.Bundle;
-import android.os.Message;
-import android.os.SystemClock;
+package com.example.yuzhong.myruns4;
 
 /**
  * Created by Shicheng on 2016/4/23.

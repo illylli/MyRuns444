@@ -1,16 +1,12 @@
-package com.example.yuzhong.myruns3;
+package com.example.yuzhong.myruns4;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.content.BroadcastReceiver;
 
 /**
  * Created by Yuzhong on 2016/4/7.
