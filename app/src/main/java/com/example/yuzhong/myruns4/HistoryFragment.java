@@ -61,6 +61,7 @@ public class HistoryFragment extends Fragment implements LoaderManager.LoaderCal
     public class ListEntry implements AdapterView.OnItemClickListener{
         @Override
         public void onItemClick(AdapterView<?> adapterView,View v, int pos, long arg3){
+            Log.d("InputType", entryList.get(pos).getmInputType() + "#####");
             Intent i;
             if(entryList.get(pos).getmInputType().equals("Manual Entry")) {
                 i = new Intent(getActivity(), DisplayEntryActivity.class);
@@ -107,16 +108,17 @@ public class HistoryFragment extends Fragment implements LoaderManager.LoaderCal
                     unit2 = " Kilometers";
                     unit1 = " km/h";
                 }
-                i.putExtra("avgSpeed", Double.toString(aveSpeed) + unit1);
-                i.putExtra("climb", Double.toString(climb) + unit2);
+                i.putExtra("avgSpeed", new DecimalFormat("####.##").format(aveSpeed) + unit1);
+                i.putExtra("climb", new DecimalFormat("####.##").format(climb) + unit2);
                 i.putExtra("calories", Integer.toString(entryList.get(pos).getmCalorie()));
-                i.putExtra("distance", Double.toString(distance) + unit2);
+                i.putExtra("distance", new DecimalFormat("####.##").format(distance) + unit2);
                 i.putExtra("location_list", entryList.get(pos).getmLocationByteArray());
                 i.putExtra("unit1", unit1);
                 i.putExtra("unit2", unit2);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("location_list2", entryList.get(pos).getmLocationList());
                 i.putExtras(bundle);
+                startActivityForResult(i, DELETE_REQEST_CODE);
             }
         }
     }

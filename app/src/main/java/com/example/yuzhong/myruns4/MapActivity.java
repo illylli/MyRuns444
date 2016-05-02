@@ -40,6 +40,8 @@ public class MapActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        setUpMapIfNeeded();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
@@ -49,11 +51,11 @@ public class MapActivity extends FragmentActivity {
         String unit1 = i.getStringExtra("unit1");
         String unit2 = i.getStringExtra("unit2");
         location.append("Type: "); location.append(i.getStringExtra("activity_type")); location.append("\n");
-        location.append("Avg speed: "); location.append(i.getStringExtra("avgSpeed"));  location.append(unit1); location.append("\n");
-        location.append("Cur speed: "); location.append("n/a"); location.append(unit1); location.append("\n");
-        location.append("Climb: "); location.append("climb"); location.append(unit2); location.append("\n");
-        location.append("Calorie: "); location.append("calories"); location.append("\n");
-        location.append("Distance: "); location.append("distance"); location.append(unit2); location.append("\n");
+        location.append("Avg speed: "); location.append(i.getStringExtra("avgSpeed"));  location.append("\n");
+        location.append("Cur speed: "); location.append("n/a");  location.append("\n");
+        location.append("Climb: "); location.append(i.getStringExtra("climb")); location.append("\n");
+        location.append("Calorie: "); location.append(i.getStringExtra("calories")); location.append("\n");
+        location.append("Distance: "); location.append(i.getStringExtra("distance")); location.append("\n");
 
         myLocationText = (TextView) findViewById(R.id.myLocationText2);
         myLocationText.setText(location.toString());
@@ -128,4 +130,33 @@ public class MapActivity extends FragmentActivity {
         return true;
     }
 
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+                setUpMap();
+                // Configure the map display options
+
+            }
+        }
+    }
+    /**
+     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
+     * just add a marker near Africa.
+     * <p/>
+     * This should only be called once and when we are sure that {@link #mMap} is not null.
+     */
+    private void setUpMap() {
+        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

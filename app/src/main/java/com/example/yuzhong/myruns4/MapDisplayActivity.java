@@ -248,6 +248,9 @@ public class MapDisplayActivity extends FragmentActivity implements OnMapReadyCa
         String time = new SimpleDateFormat("HH:mm:ss MMM dd yyyy").format(new Date());
         mHistoryEntry = mTrackingService.getHistoryEntry();
         mHistoryEntry.setmDateTime(time);
+
+        Log.d("InputType", inputType);
+
         mHistoryEntry.setmInputType(inputType);
         if(!inputType.equals("Automatic")) mHistoryEntry.setmActivityType(activityType);
         double duration = ((double)(System.currentTimeMillis() - mStartTime)) / (1000 * 60);
